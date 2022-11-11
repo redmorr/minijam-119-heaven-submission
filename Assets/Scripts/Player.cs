@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
     public Transform WeaponMuzzle;
     public Bullet Projectile;
 
+    [Header("Camera")]
+    public Transform CameraRoot;
+    [Range(0f, 1f)]
+    public float MouseWeight = 0.3f;
+
     private PlayerInputActions playerInputActions;
     private InputAction move;
     private InputAction fire;
@@ -60,11 +65,13 @@ public class Player : MonoBehaviour
         movement = move.ReadValue<Vector2>();
         mouse = look.ReadValue<Vector2>();
 
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mouse);
-        worldPosition.z = 0;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(mouse);
+        mousePos.z = 0;
 
-        Vector2 direction = worldPosition - transform.position;
-        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        Vector2 toMouse = mousePos - transform.position;
+        CameraRoot.position = transform.position + 0.2f * new Vector3(toMouse.x, toMouse.y, 0f);
+
+        float angle = Vector2.SignedAngle(Vector2.up, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
         animator.SetFloat("X", movement.x);
