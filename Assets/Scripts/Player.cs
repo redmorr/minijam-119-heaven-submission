@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;
     public Bullet Projectile;
+    public EventReference Gunshot;
 
     [Header("Camera")]
     public Transform CameraRoot;
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour
     private void Fire(InputAction.CallbackContext context)
     {
         Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
+        RuntimeManager.PlayOneShot(Gunshot, WeaponMuzzle.position);
         bullet.Shoot();
     }
 }
