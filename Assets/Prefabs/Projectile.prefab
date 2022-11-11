@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cda93e5b6bd23345a707b8d247c30e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 0
+  PushbackForce: 1800
 --- !u!50 &5240140696330357356
 Rigidbody2D:
   serializedVersion: 4

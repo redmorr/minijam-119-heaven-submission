@@ -41,7 +41,6 @@ public class Enemy : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Player") && cooldown <= 0)
             {
                 Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);

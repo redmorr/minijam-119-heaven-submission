@@ -85,7 +85,6 @@ public class Player : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Debug.Log("Pew pew pew");
         Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
         bullet.Shoot();
     }

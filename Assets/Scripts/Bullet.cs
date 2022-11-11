@@ -3,13 +3,16 @@ using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
+    public int Damage;
+    public float PushbackForce;
+
     private DestructableTilemap tilemap;
     private Health health;
 
     public void Shoot()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        float speed = 20f;
+        float speed = 10f;
         rb.AddForce(transform.up * speed, ForceMode2D.Impulse);
     }
 
@@ -22,8 +25,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.collider.TryGetComponent(out health))
         {
-            Debug.Log("Die!");
-            health.Damage();
+            health.Damage(Damage, PushbackForce * transform.up);
         }
 
         Destroy(gameObject);
