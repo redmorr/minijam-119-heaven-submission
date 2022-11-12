@@ -11,6 +11,8 @@ using static UnityEditor.PlayerSettings;
 public class Player : MonoBehaviour
 {
     public float Speed;
+
+    [Header("Weapon")]
     public SpriteRenderer Weapon;
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;

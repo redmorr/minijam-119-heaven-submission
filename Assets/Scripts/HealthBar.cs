@@ -10,12 +10,12 @@ public class HealthBar : MonoBehaviour
 
     public int MaxHP;
     public int HP;
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
 
 
     private void Start()
     {
-        playerHealth = FindObjectOfType<Player>().gameObject.GetComponent<Health>();
+        playerHealth = FindObjectOfType<PlayerHealth>();
         MaxHP = playerHealth.MaxHP;
         HP = playerHealth.HP;
 
@@ -24,6 +24,22 @@ public class HealthBar : MonoBehaviour
             hearts[i].gameObject.SetActive(true);
             hearts[i].color = fullHeartColor;
         }
+
+        playerHealth.OnHealthChanged += UpdateHealthBar;
+    }
+
+    private void UpdateHealthBar(int damage)
+    {
+        for (int i = 0; i < damage; i++)
+        {
+            int index = HP - 1 - i;
+            if (index >= 0)
+            {
+                hearts[HP - 1 - i].color = Color.white;
+            }
+        }
+
+        HP = playerHealth.HP;
     }
 
     private void Update()
