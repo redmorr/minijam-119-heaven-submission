@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float speed = 10f;
-        rb.AddForce(transform.up * speed, ForceMode2D.Impulse);
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.collider.TryGetComponent(out health))
         {
-            health.Damage(Damage, PushbackForce * transform.up);
+            health.Damage(Damage, PushbackForce * transform.right);
         }
 
         Destroy(gameObject);

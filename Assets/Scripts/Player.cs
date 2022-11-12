@@ -11,10 +11,12 @@ using static UnityEditor.PlayerSettings;
 public class Player : MonoBehaviour
 {
     public float Speed;
+    public SpriteRenderer Weapon;
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;
     public Bullet Projectile;
     public EventReference Gunshot;
+    public GameObject MuzzleFlash;
 
     [Header("Camera")]
     public Transform CameraRoot;
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour
     private Animator animator;
 
     private Vector2 movement;
-    public Vector2 mouse;
+    private Vector2 mouse;
 
     private Plane groundPlane = new Plane(Vector3.up, new Vector3(0f, 0f, 0f));
 
@@ -73,7 +75,9 @@ public class Player : MonoBehaviour
         Vector2 toMouse = mousePos - transform.position;
         CameraRoot.position = transform.position + 0.2f * new Vector3(toMouse.x, toMouse.y, 0f);
 
-        float angle = Vector2.SignedAngle(Vector2.up, toMouse);
+        Weapon.flipY = Vector2.SignedAngle(Vector2.up, toMouse) > 0;
+
+        float angle = Vector2.SignedAngle(Vector2.right, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
         animator.SetFloat("X", movement.x);
@@ -88,6 +92,7 @@ public class Player : MonoBehaviour
     private void Fire(InputAction.CallbackContext context)
     {
         Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
+        //Instantiate(MuzzleFlash, WeaponMuzzle.position, WeaponMuzzle.rotation);
         RuntimeManager.PlayOneShot(Gunshot, WeaponMuzzle.position);
         bullet.Shoot();
     }

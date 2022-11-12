@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float Speed = 0.5f;
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;
+    public SpriteRenderer Weapon;
     public Bullet Projectile;
     public float timeBetweenBullets = 0.5f;
     public LayerMask layerMask;
@@ -33,11 +34,12 @@ public class Enemy : MonoBehaviour
         Vector2 toPlayer = player.transform.position - transform.position;
         movement = toPlayer.normalized;
 
-        float angle = Vector2.SignedAngle(Vector2.up, toPlayer);
+        float angle = Vector2.SignedAngle(Vector2.right, toPlayer);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
+        Weapon.flipY = Vector2.SignedAngle(Vector2.up, toPlayer) > 0;
 
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), WeaponPivot.up, Mathf.Infinity, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), WeaponPivot.right, Mathf.Infinity, layerMask);
 
         if (hit.collider != null)
         {
