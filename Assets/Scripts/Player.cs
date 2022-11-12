@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
 
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     private InputAction reload;
     private Rigidbody2D rb;
     private Animator animator;
+    private SpriteRenderer sprite;
 
     //private Coroutine reloadRoutine;
 
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         ammoBar = GetComponentInChildren<AmmoBar>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()
@@ -101,11 +104,13 @@ public class Player : MonoBehaviour
         if (topAngle > 0)
         {
             Weapon.flipY = true;
+            sprite.flipX = true;
             animator.SetBool("Flip", true);
         }
         else
         {
             Weapon.flipY = false;
+            sprite.flipX = false;
             animator.SetBool("Flip", false);
         }
 
