@@ -84,13 +84,24 @@ public class Player : MonoBehaviour
         else
             Weapon.sortingOrder = 1;
 
-        Weapon.flipY = topAngle > 0;
+        if (topAngle > 0)
+        {
+            Weapon.flipY = true;
+            animator.SetBool("Flip", true);
+        }
+        else
+        {
+            Weapon.flipY = false;
+            animator.SetBool("Flip", false);
+        }
 
         float angle = Vector2.SignedAngle(Vector2.right, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
+        /* human animator
         animator.SetFloat("X", movement.x);
         animator.SetFloat("Y", movement.y);
+        */
     }
 
     private void FixedUpdate()
