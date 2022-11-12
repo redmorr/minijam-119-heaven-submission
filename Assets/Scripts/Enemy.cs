@@ -37,7 +37,14 @@ public class Enemy : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, toPlayer);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
-        Weapon.flipY = Vector2.SignedAngle(Vector2.up, toPlayer) > 0;
+        float topAngle = Vector2.SignedAngle(Vector2.up, toPlayer);
+
+        if (Mathf.Abs(topAngle) > 30)
+            Weapon.sortingOrder = 3;
+        else
+            Weapon.sortingOrder = 1;
+
+        Weapon.flipY = topAngle > 0;
 
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), WeaponPivot.right, Mathf.Infinity, layerMask);
 

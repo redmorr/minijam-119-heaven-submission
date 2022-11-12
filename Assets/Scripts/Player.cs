@@ -77,7 +77,14 @@ public class Player : MonoBehaviour
         Vector2 toMouse = mousePos - transform.position;
         CameraRoot.position = transform.position + 0.2f * new Vector3(toMouse.x, toMouse.y, 0f);
 
-        Weapon.flipY = Vector2.SignedAngle(Vector2.up, toMouse) > 0;
+        float topAngle = Vector2.SignedAngle(Vector2.up, toMouse);
+
+        if (Mathf.Abs(topAngle) > 30)
+            Weapon.sortingOrder = 3;
+        else
+            Weapon.sortingOrder = 1;
+
+        Weapon.flipY = topAngle > 0;
 
         float angle = Vector2.SignedAngle(Vector2.right, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
