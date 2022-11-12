@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 public class Bullet : MonoBehaviour
 {
     public int Damage;
+    public float Speed = 10f;
     public float PushbackForce;
 
     private DestructableTilemap tilemap;
@@ -12,8 +13,8 @@ public class Bullet : MonoBehaviour
     public void Shoot()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        float speed = 10f;
-        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        
+        rb.AddForce(transform.right * Speed, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

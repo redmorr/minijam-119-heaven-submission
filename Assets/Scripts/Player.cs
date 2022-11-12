@@ -33,13 +33,15 @@ public class Player : MonoBehaviour
     private InputAction move;
     private InputAction fire;
     private InputAction look;
+    private InputAction reload;
     private Rigidbody2D rb;
     private Animator animator;
+
+    //private Coroutine reloadRoutine;
 
     private Vector2 movement;
     private Vector2 mouse;
 
-    private Plane groundPlane = new Plane(Vector3.up, new Vector3(0f, 0f, 0f));
 
     private float gunCooldown = 0f;
 
@@ -63,7 +65,13 @@ public class Player : MonoBehaviour
         fire = playerInputActions.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+
+        reload = playerInputActions.Player.Reload;
+        reload.Enable();
+        reload.started += Reload;
     }
+
+
 
     private void OnDisable()
     {
@@ -114,6 +122,8 @@ public class Player : MonoBehaviour
         {
             gunCooldown -= Time.deltaTime;
         }
+
+
     }
 
 
@@ -124,7 +134,7 @@ public class Player : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        if (gunCooldown <= 0f && ammoBar.CurrentAmmo > 0)
+        if (gunCooldown <= 0f && ammoBar.CurrentAmmo > 0 && !IsReloading)
         {
             Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
             //Instantiate(MuzzleFlash, WeaponMuzzle.position, WeaponMuzzle.rotation);
@@ -135,6 +145,14 @@ public class Player : MonoBehaviour
             {
                 StartCoroutine(ReloadRoutine());
             }
+        }
+    }
+
+    private void Reload(InputAction.CallbackContext context)
+    {
+        if (!IsReloading && ammoBar.CurrentAmmo != ammoBar.MaxAmmo)
+        {
+            StartCoroutine(ReloadRoutine());
         }
     }
 
