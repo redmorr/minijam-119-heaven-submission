@@ -45,6 +45,7 @@ public class AmmoBar : MonoBehaviour
         {
             a.UpdateSprite(BulletFull);
         }
+        CurrentAmmo = MaxAmmo;
     }
 
     public void GotDamaged()

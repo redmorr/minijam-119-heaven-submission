@@ -16,11 +16,12 @@ public class Player : MonoBehaviour
     public SpriteRenderer Weapon;
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;
+    public AmmoBar ammoBar;
     public Bullet Projectile;
     public EventReference Gunshot;
-
-    [Header("Ammo")]
-    public AmmoBar ammoBar;
+    public float TimeBetweenShots;
+    public float ReloadTime;
+    public bool IsReloading = false;
 
 
     [Header("Camera")]
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
     private Vector2 mouse;
 
     private Plane groundPlane = new Plane(Vector3.up, new Vector3(0f, 0f, 0f));
+
+    private float gunCooldown = 0f;
 
     private void Awake()
     {
@@ -101,11 +104,18 @@ public class Player : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
+
         /* human animator
         animator.SetFloat("X", movement.x);
         animator.SetFloat("Y", movement.y);
         */
+
+        if (gunCooldown > 0f)
+        {
+            gunCooldown -= Time.deltaTime;
+        }
     }
+
 
     private void FixedUpdate()
     {
@@ -114,9 +124,25 @@ public class Player : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
-        //Instantiate(MuzzleFlash, WeaponMuzzle.position, WeaponMuzzle.rotation);
-        RuntimeManager.PlayOneShot(Gunshot, WeaponMuzzle.position);
-        bullet.Shoot();
+        if (gunCooldown <= 0f && ammoBar.CurrentAmmo > 0)
+        {
+            Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
+            //Instantiate(MuzzleFlash, WeaponMuzzle.position, WeaponMuzzle.rotation);
+            RuntimeManager.PlayOneShot(Gunshot, WeaponMuzzle.position);
+            bullet.Shoot();
+            gunCooldown = TimeBetweenShots;
+            if (ammoBar.SpendOneAmmo() <= 0)
+            {
+                StartCoroutine(ReloadRoutine());
+            }
+        }
+    }
+
+    private IEnumerator ReloadRoutine()
+    {
+        IsReloading = true;
+        yield return new WaitForSeconds(ReloadTime);
+        ammoBar.ReloadAllAmmo();
+        IsReloading = false;
     }
 }
