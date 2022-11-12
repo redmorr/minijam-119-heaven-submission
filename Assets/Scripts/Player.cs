@@ -1,13 +1,10 @@
 using FMODUnity;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
+
 
 public class Player : MonoBehaviour
 {
