@@ -1,49 +1,105 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBar : MonoBehaviour
+public class HealthBar : Health
 {
-    public SpriteRenderer[] hearts;
-    public Color fullHeartColor;
-    public Color emptyHeartColor;
+    public Heart[] Hearths;
+    public Sprite HeartEmpty;
+    public Sprite HeartFull;
+    public int CurrentHealth = 6;
+    public int MaxHealth = 6;
+    public bool IsInInvincibilityFrame = false;
+    public Material flashMaterial;
+    public float flashDuration;
+    public int loops;
+    public float blinkDuration;
 
-    public int MaxHP;
-    public int HP;
-    private PlayerHealth playerHealth;
-
+    private Coroutine flash;
+    private SpriteRenderer spriteRenderer;
+    private Material originalMaterial;
+    private Rigidbody2D rb;
 
     private void Start()
     {
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        MaxHP = playerHealth.MaxHP;
-        HP = playerHealth.HP;
-
-        for (int i = 0; i < MaxHP; i++)
-        {
-            hearts[i].gameObject.SetActive(true);
-            hearts[i].color = fullHeartColor;
-        }
-
-        playerHealth.OnHealthChanged += UpdateHealthBar;
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalMaterial = spriteRenderer.material;
     }
 
-    private void UpdateHealthBar(int damage)
+    public override void Damage(int damage, Vector2 pushback)
     {
-        for (int i = 0; i < damage; i++)
-        {
-            int index = HP - 1 - i;
-            if (index >= 0)
-            {
-                hearts[HP - 1 - i].color = Color.white;
-            }
-        }
-
-        HP = playerHealth.HP;
+        ApplyDamage();
     }
 
-    private void Update()
+    public void ApplyDamage()
     {
+        if (!IsInInvincibilityFrame)
+        {
+            SpendOneHeart();
+            FlashAndBlink();
+        }
+    }
 
+    public int SpendOneHeart()
+    {
+        if (CurrentHealth >= 1)
+        {
+            int newHealth = CurrentHealth - 1;
+            Hearths[newHealth].UpdateSprite(HeartEmpty);
+            CurrentHealth = newHealth;
+            return CurrentHealth;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public void FlashAndBlink()
+    {
+        if (flash != null)
+        {
+            StopCoroutine(flash);
+        }
+
+        flash = StartCoroutine(FlashAndBlinkRoutine());
+    }
+
+    private IEnumerator FlashAndBlinkRoutine()
+    {
+        IsInInvincibilityFrame = true;
+
+        foreach (Heart h in Hearths)
+            h.spriteRenderer.material = flashMaterial;
+
+        spriteRenderer.material = flashMaterial;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        foreach (Heart h in Hearths)
+            h.spriteRenderer.material = h.originalMaterial;
+
+        spriteRenderer.material = originalMaterial;
+
+        yield return new WaitForSeconds(blinkDuration);
+
+        for (int i = 0; i < loops; i++)
+        {
+            foreach (Heart h in Hearths)
+                h.spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+
+            yield return new WaitForSeconds(blinkDuration);
+
+            foreach (Heart h in Hearths)
+                h.spriteRenderer.color = Color.white;
+
+            spriteRenderer.color = Color.white;
+
+            yield return new WaitForSeconds(blinkDuration);
+        }
+
+        IsInInvincibilityFrame = false;
     }
 }

@@ -30,4 +30,11 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    //void OnTriggerEnter2D(Collider2D collider)
+    //{
+    //    Debug.Log(collider.name);
+    //    Destroy(gameObject);
+    //    //ammoBar.SpendOneAmmo();
+    //}
 }

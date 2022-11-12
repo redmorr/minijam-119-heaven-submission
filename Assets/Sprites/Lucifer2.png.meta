@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac05f5c8b1c62c44ab37715ddf0e69ef
+guid: 4d9846451b2441445a55eb1c031567ae
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boolet_0
+      name: Lucifer2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9d8f847283dc2d4eb10dabb41d782a4
-      internalID: -2095122148
+      spriteID: ace5220cba7c3864c94908c52df707d6
+      internalID: 1704654695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boolet_1
+      name: Lucifer2_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,8 +140,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e515910b9ec454f82ace21b3923bc2
-      internalID: -306491628
+      spriteID: 2e7f08895ea9f524db459fe4a1c0ed40
+      internalID: -138379188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lucifer2_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c07cebef5c18848aa4de148ebc907c
+      internalID: 2128762387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lucifer2_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f2ea52828ad7ec40ad023f49972e5dc
+      internalID: 1599463379
       vertices: []
       indices: 
       edges: []
@@ -157,8 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Boolet_1: -306491628
-      Boolet_0: -2095122148
+      Lucifer2_3: 1599463379
+      Lucifer2_0: 1704654695
+      Lucifer2_2: 2128762387
+      Lucifer2_1: -138379188
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

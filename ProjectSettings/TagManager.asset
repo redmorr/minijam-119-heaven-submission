@@ -14,11 +14,11 @@ TagManager:
   - Player
   - Obstacle
   - Projectile
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - GroundDestructable
+  - Enemy
+  - Bounds
+  - PseudoUI
   - 
   - 
   - 

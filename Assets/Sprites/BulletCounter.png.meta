@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac05f5c8b1c62c44ab37715ddf0e69ef
+guid: d8a7edf6075a2be4382bb6c7d0845d8f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boolet_0
+      name: BulletCounter_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9d8f847283dc2d4eb10dabb41d782a4
-      internalID: -2095122148
+      spriteID: 4b56ea9bf2b96b949b347d86e90fcf5b
+      internalID: -772404832
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boolet_1
+      name: BulletCounter_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e515910b9ec454f82ace21b3923bc2
-      internalID: -306491628
+      spriteID: e2d81445b4f82174e9fc2c23cff56fe1
+      internalID: 261189703
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Boolet_1: -306491628
-      Boolet_0: -2095122148
+      BulletCounter_1: 261189703
+      BulletCounter_0: -772404832
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

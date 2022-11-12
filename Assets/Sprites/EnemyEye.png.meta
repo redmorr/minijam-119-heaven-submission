@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac05f5c8b1c62c44ab37715ddf0e69ef
+guid: f31aa57d050f1e947b572b020ef6f8be
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boolet_0
+      name: EnemyEye_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9d8f847283dc2d4eb10dabb41d782a4
-      internalID: -2095122148
+      spriteID: 36f976c62e7915445b7bc11f06e69cc1
+      internalID: 1186739556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boolet_1
+      name: EnemyEye_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,8 +140,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e515910b9ec454f82ace21b3923bc2
-      internalID: -306491628
+      spriteID: 1b407fb63f6ccae4c8739a6df647665a
+      internalID: 687700765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemyEye_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ef5bc09d29e1ff408d8728c53775c43
+      internalID: 627116896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemyEye_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 955d9b3b96e07e04397ddd46a12d33f2
+      internalID: -761362503
       vertices: []
       indices: 
       edges: []
@@ -157,8 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Boolet_1: -306491628
-      Boolet_0: -2095122148
+      EnemyEye_3: -761362503
+      EnemyEye_2: 627116896
+      EnemyEye_1: 687700765
+      EnemyEye_0: 1186739556
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

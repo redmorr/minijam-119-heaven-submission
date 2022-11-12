@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac05f5c8b1c62c44ab37715ddf0e69ef
+guid: 373e90076e8953a4fab4556e879535c6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boolet_0
+      name: Heart_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9d8f847283dc2d4eb10dabb41d782a4
-      internalID: -2095122148
+      spriteID: f95acab265c15764793e9584dc2e6eb7
+      internalID: -1710306349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Boolet_1
+      name: Heart_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41e515910b9ec454f82ace21b3923bc2
-      internalID: -306491628
+      spriteID: 954350abbadcfc047bb0917005564d9e
+      internalID: -2080125891
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Boolet_1: -306491628
-      Boolet_0: -2095122148
+      Heart_0: -1710306349
+      Heart_1: -2080125891
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

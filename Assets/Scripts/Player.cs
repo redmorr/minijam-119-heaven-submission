@@ -18,7 +18,10 @@ public class Player : MonoBehaviour
     public Transform WeaponMuzzle;
     public Bullet Projectile;
     public EventReference Gunshot;
-    public GameObject MuzzleFlash;
+
+    [Header("Ammo")]
+    public AmmoBar ammoBar;
+
 
     [Header("Camera")]
     public Transform CameraRoot;
@@ -29,7 +32,6 @@ public class Player : MonoBehaviour
     private InputAction move;
     private InputAction fire;
     private InputAction look;
-
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        ammoBar = GetComponentInChildren<AmmoBar>();
     }
 
     void OnEnable()
