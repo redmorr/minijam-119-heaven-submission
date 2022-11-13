@@ -15,15 +15,16 @@ public class HealthBar : Health
     public int loops;
     public float blinkDuration;
     public EventReference hurtSFX;
-    public EventReference deathSFX;
 
     private Coroutine flash;
+    private Player player;
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
     private Rigidbody2D rb;
 
-    private void Start()
+    private void Awake()
     {
+        player = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;
@@ -36,7 +37,7 @@ public class HealthBar : Health
 
     public void ApplyDamage()
     {
-        if (!IsInInvincibilityFrame)
+        if (!IsInInvincibilityFrame && CurrentHealth > 0)
         {
             RuntimeManager.PlayOneShot(hurtSFX, transform.position);
             SpendOneHeart();
@@ -44,20 +45,16 @@ public class HealthBar : Health
         }
     }
 
-    public int SpendOneHeart()
+    public void SpendOneHeart()
     {
-        if (CurrentHealth >= 1)
+        int newHealth = CurrentHealth - 1;
+        Hearths[newHealth].UpdateSprite(HeartEmpty);
+        CurrentHealth = newHealth;
+        if (CurrentHealth == 0)
         {
-            int newHealth = CurrentHealth - 1;
-            Hearths[newHealth].UpdateSprite(HeartEmpty);
-            CurrentHealth = newHealth;
-            return CurrentHealth;
+            player.Die();
         }
-        else
-        {
-            RuntimeManager.PlayOneShot(deathSFX, transform.position);
-            return 0;
-        }
+
     }
 
     public void FlashAndBlink()

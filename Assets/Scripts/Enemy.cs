@@ -89,6 +89,9 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + Time.fixedDeltaTime * Speed * movement);
+        if (player.IsAlive)
+        {
+            rb.MovePosition(rb.position + Time.fixedDeltaTime * Speed * movement);
+        }
     }
 }

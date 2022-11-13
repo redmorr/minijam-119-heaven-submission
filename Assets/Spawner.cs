@@ -8,10 +8,16 @@ public class Spawner : MonoBehaviour
 {
     public Enemy enemyPrefab;
     public float SpawnRatePerSecond;
+    public bool Spawn = true;
     private Tilemap tilemap;
     private List<Vector3> tileWorldLocations = new List<Vector3>();
 
     private float timer = 0f;
+
+    public void Stop()
+    {
+        Spawn = false;
+    }
 
     private void Awake()
     {
@@ -31,12 +37,15 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (SpawnRatePerSecond < timer)
+        if (Spawn)
         {
-            Instantiate(enemyPrefab, tileWorldLocations[Random.Range(0, tileWorldLocations.Count - 1)], Quaternion.identity);
-            timer = 0f;
+            if (SpawnRatePerSecond < timer)
+            {
+                Instantiate(enemyPrefab, tileWorldLocations[Random.Range(0, tileWorldLocations.Count - 1)], Quaternion.identity);
+                timer = 0f;
+            }
+            timer += Time.deltaTime;
         }
-        timer += Time.deltaTime;
     }
 
 }

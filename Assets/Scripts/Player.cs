@@ -4,6 +4,8 @@ using System.Collections;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class Player : MonoBehaviour
@@ -15,14 +17,17 @@ public class Player : MonoBehaviour
     public Transform WeaponPivot;
     public Transform WeaponMuzzle;
     public AmmoBar ammoBar;
+    public HealthBar healthBar;
     public Bullet Projectile;
     public EventReference Gunshot;
     public float TimeBetweenShots;
     public float ReloadTime;
     public bool IsReloading = false;
+    public Material flashMaterial;
     public EventReference flapWingsSFX;
     public EventReference reloadSFX;
-    public Material flashMaterial;
+    public EventReference deathSFX;
+    public bool IsAlive = true;
 
 
     [Header("Camera")]
@@ -39,6 +44,8 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sprite;
     private Material weaponOriginalMaterial;
+    private Fader fader;
+    private Spawner spawner;
 
     //private Coroutine reloadRoutine;
 
@@ -50,8 +57,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        spawner = FindObjectOfType<Spawner>();
         playerInputActions = new PlayerInputActions();
-
+        fader = GetComponent<Fader>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         ammoBar = GetComponentInChildren<AmmoBar>();
@@ -174,5 +182,38 @@ public class Player : MonoBehaviour
         ammoBar.ReloadAllAmmo();
         Weapon.material = weaponOriginalMaterial;
         IsReloading = false;
+    }
+
+    private IEnumerator SceneReload()
+    {
+        yield return new WaitForSeconds(1.1f);
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        Resources.UnloadUnusedAssets();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+
+    public void Die()
+    {
+        RuntimeManager.PlayOneShot(deathSFX, transform.position);
+        move.Disable();
+        fire.Disable();
+        reload.Disable();
+        animator.enabled = false;
+        gameObject.layer = 15; // Corpse
+        sprite.color = new Color(0.2f, 0.2f, 0.2f);
+        sprite.flipY = true;
+        IsAlive = false;
+        spawner.Stop();
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i).gameObject;
+            if (child != null)
+                child.SetActive(false);
+        }
+        fader.FadeOut();
+        this.enabled = false;
+        StartCoroutine(SceneReload());
     }
 }
