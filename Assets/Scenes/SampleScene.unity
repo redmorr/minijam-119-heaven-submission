@@ -3876,9 +3876,6 @@ MonoBehaviour:
   Weapon: {fileID: 1684467248}
   Projectile: {fileID: 4355014189728491404, guid: befdcf1cb95216b48b813d0d4dce2a5f, type: 3}
   timeBetweenBullets: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 192
   spawnSFX:
     Guid:
       Data1: 0
@@ -59374,6 +59371,13 @@ MonoBehaviour:
       Data3: -1446852477
       Data4: -1511090555
     Path: event:/PlayerDeath
+  music:
+    Guid:
+      Data1: 11405626
+      Data2: 1172170482
+      Data3: 436566443
+      Data4: -709469176
+    Path: event:/Music
   IsAlive: 1
   CameraRoot: {fileID: 1119269149}
   MouseWeight: 0.3

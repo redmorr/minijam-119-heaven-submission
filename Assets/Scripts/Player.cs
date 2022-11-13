@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public EventReference flapWingsSFX;
     public EventReference reloadSFX;
     public EventReference deathSFX;
+    public EventReference music;
+    private FMOD.Studio.EventInstance musicInstance;
+
     public bool IsAlive = true;
 
 
@@ -65,6 +68,11 @@ public class Player : MonoBehaviour
         ammoBar = GetComponentInChildren<AmmoBar>();
         sprite = GetComponent<SpriteRenderer>();
         weaponOriginalMaterial = Weapon.material;
+        musicInstance = RuntimeManager.CreateInstance(music);
+    }
+    private void Start()
+    {
+        musicInstance.start();
     }
 
     void OnEnable()
@@ -195,7 +203,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        RuntimeManager.PlayOneShot(deathSFX, transform.position);
+        musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         move.Disable();
         fire.Disable();
         reload.Disable();
@@ -214,6 +222,7 @@ public class Player : MonoBehaviour
         }
         fader.FadeOut();
         this.enabled = false;
+        RuntimeManager.PlayOneShot(deathSFX, transform.position);
         StartCoroutine(SceneReload());
     }
 }
