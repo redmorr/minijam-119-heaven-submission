@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class HealthBar : Health
     public float flashDuration;
     public int loops;
     public float blinkDuration;
+    public EventReference hurtSFX;
+    public EventReference deathSFX;
 
     private Coroutine flash;
     private SpriteRenderer spriteRenderer;
@@ -35,6 +38,7 @@ public class HealthBar : Health
     {
         if (!IsInInvincibilityFrame)
         {
+            RuntimeManager.PlayOneShot(hurtSFX, transform.position);
             SpendOneHeart();
             FlashAndBlink();
         }
@@ -51,6 +55,7 @@ public class HealthBar : Health
         }
         else
         {
+            RuntimeManager.PlayOneShot(deathSFX, transform.position);
             return 0;
         }
     }

@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,26 @@ public class EnemyHealth : Health
     [Header("Health")]
     public int MaxHP;
     public int HP;
+    public int CorpseHP;
     [Header("Flash on Damage")]
     public Material flashMaterial;
     public float flashDuration;
+    public EventReference hurtSFX;
+    public EventReference deathSFX;
+
 
     private Coroutine flash;
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
     private Rigidbody2D rb;
+    private Enemy enemy;
+    private Animator animator;
+
+    private void Awake()
+    {
+        enemy = GetComponent<Enemy>();
+        animator = GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -32,18 +45,34 @@ public class EnemyHealth : Health
     {
         HP -= damage;
 
-        if (HP <= 0)
+        if (HP > 0)
         {
-            Destroy(gameObject);
+            RuntimeManager.PlayOneShot(deathSFX, transform.position);
+            Flash();
         }
-
-        if (rb)
+        else if (HP == 0)
         {
-            rb.AddForce(pushback);
-        }
+            enemy.enabled = false;
+            animator.enabled = false;
+            gameObject.layer = 15; // Corpse
+            spriteRenderer.color = new Color(0.2f, 0.2f, 0.2f);
+            spriteRenderer.flipY = true;
 
-        Flash();
+            if (rb)
+            {
+                rb.AddForce(pushback);
+            }
+        }
+        else
+        {
+            if (HP <= -CorpseHP)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
+
+
 
     public void Flash()
     {
@@ -71,3 +100,4 @@ public class EnemyHealth : Health
         }
     }
 }
+

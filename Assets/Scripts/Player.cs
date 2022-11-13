@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public float TimeBetweenShots;
     public float ReloadTime;
     public bool IsReloading = false;
+    public EventReference flapWingsSFX;
+    public EventReference reloadSFX;
+    public Material flashMaterial;
 
 
     [Header("Camera")]
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sprite;
+    private Material weaponOriginalMaterial;
 
     //private Coroutine reloadRoutine;
 
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ammoBar = GetComponentInChildren<AmmoBar>();
         sprite = GetComponent<SpriteRenderer>();
+        weaponOriginalMaterial = Weapon.material;
     }
 
     void OnEnable()
@@ -70,8 +75,6 @@ public class Player : MonoBehaviour
         reload.Enable();
         reload.started += Reload;
     }
-
-
 
     private void OnDisable()
     {
@@ -115,23 +118,26 @@ public class Player : MonoBehaviour
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
 
-        /* human animator
-        animator.SetFloat("X", movement.x);
-        animator.SetFloat("Y", movement.y);
-        */
+        if (movement != Vector2.zero)
+            animator.SetFloat("SpeedMultiplier", 2f);
+        else
+            animator.SetFloat("SpeedMultiplier", 1f);
 
         if (gunCooldown > 0f)
         {
             gunCooldown -= Time.deltaTime;
         }
-
-
     }
 
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + Time.fixedDeltaTime * Speed * movement);
+    }
+
+    public void PlayFlapWingsSFX()
+    {
+        RuntimeManager.PlayOneShot(flapWingsSFX, transform.position);
     }
 
     private void Fire(InputAction.CallbackContext context)
@@ -160,9 +166,13 @@ public class Player : MonoBehaviour
 
     private IEnumerator ReloadRoutine()
     {
+        ammoBar.DumpAllAmmo();
         IsReloading = true;
+        Weapon.material = flashMaterial;
+        RuntimeManager.PlayOneShot(reloadSFX, transform.position);
         yield return new WaitForSeconds(ReloadTime);
         ammoBar.ReloadAllAmmo();
+        Weapon.material = weaponOriginalMaterial;
         IsReloading = false;
     }
 }

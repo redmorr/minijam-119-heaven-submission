@@ -1,15 +1,15 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class DestructableTilemap : MonoBehaviour
 {
     private Tilemap tilemap;
+    public EventReference destructionSFX;
 
     private void Start()
     {
-        tilemap = GetComponent<Tilemap>();
-
-        BoundsInt bounds = tilemap.cellBounds;        
+        tilemap = GetComponent<Tilemap>();   
     }
 
     public void DestroyTiles(Collision2D collision)
@@ -22,5 +22,7 @@ public class DestructableTilemap : MonoBehaviour
             hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
             tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
         }
+
+        RuntimeManager.PlayOneShot(destructionSFX);
     }
 }

@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ public class AmmoBar : MonoBehaviour
     public Sprite BulletFull;
     public int CurrentAmmo = 6;
     public int MaxAmmo = 6;
+    public EventReference HitSFX;
 
     public Material flashMaterial;
     public float flashDuration;
@@ -39,6 +41,15 @@ public class AmmoBar : MonoBehaviour
         }
     }
 
+    public void DumpAllAmmo()
+    {
+        foreach (Ammo a in ammo)
+        {
+            a.UpdateSprite(BulletEmpty);
+        }
+        CurrentAmmo = 0;
+    }
+
     public void ReloadAllAmmo()
     {
         foreach (Ammo a in ammo)
@@ -50,6 +61,7 @@ public class AmmoBar : MonoBehaviour
 
     public void GotDamaged()
     {
+        RuntimeManager.PlayOneShot(HitSFX, transform.position);
         SpendOneAmmo();
         Flash();
     }
