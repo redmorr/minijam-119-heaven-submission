@@ -194,8 +194,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator SceneReload()
     {
-        yield return new WaitForSeconds(1.1f);
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitForSeconds(2f);
+        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }

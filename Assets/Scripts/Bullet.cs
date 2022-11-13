@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
             Health--;
             if (Health <= 0)
                 Destroy(gameObject);
-            //rb.AddForce(transform.right * Speed, ForceMode2D.Impulse);
         }
 
         if (collision.collider.TryGetComponent(out health))

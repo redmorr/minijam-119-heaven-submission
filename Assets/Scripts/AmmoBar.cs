@@ -17,10 +17,17 @@ public class AmmoBar : MonoBehaviour
     public float flashDuration;
 
     private Coroutine flash;
+    private HealthBar healthBar;
+
+    private void Awake()
+    {
+        healthBar = transform.parent.GetComponent<HealthBar>();
+    }
 
     private void Start()
     {
-        foreach(Ammo a in ammo)
+
+        foreach (Ammo a in ammo)
         {
             a.UpdateSprite(BulletFull);
         }
@@ -61,9 +68,19 @@ public class AmmoBar : MonoBehaviour
 
     public void GotDamaged()
     {
-        RuntimeManager.PlayOneShot(HitSFX, transform.position);
-        SpendOneAmmo();
         Flash();
+
+        if (CurrentAmmo > 0)
+        {
+            RuntimeManager.PlayOneShot(HitSFX, transform.position);
+            SpendOneAmmo();
+        }
+        else
+        {
+            healthBar.Damage(1, Vector2.zero);
+        }
+
+
     }
 
     public void Flash()

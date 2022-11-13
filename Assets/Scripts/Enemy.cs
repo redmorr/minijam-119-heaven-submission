@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(0f, 0f, 1f, 0.5f);
+        spriteRenderer.color = new Color(1f, 0f, 0f, 0.7f);
         StartCoroutine(SpoolUp());
     }
 
