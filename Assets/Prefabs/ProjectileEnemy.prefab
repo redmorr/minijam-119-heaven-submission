@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
+  Health: 1
   Speed: 10
   PushbackForce: 10
 --- !u!50 &5240140696330357356
