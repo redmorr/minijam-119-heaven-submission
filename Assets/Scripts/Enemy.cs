@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     public SpriteRenderer Weapon;
     public Bullet Projectile;
     public float timeBetweenBullets = 1f;
-    public LayerMask layerMask;
     public EventReference spawnSFX;
 
     private Rigidbody2D rb;
@@ -61,18 +60,12 @@ public class Enemy : MonoBehaviour
 
         Weapon.flipY = topAngle > 0;
 
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), WeaponPivot.right, Mathf.Infinity, layerMask);
-
-        if (hit.collider != null)
+        if (cooldown <= 0)
         {
-            if (hit.collider.CompareTag("Player") && cooldown <= 0)
-            {
-                Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
-                bullet.Shoot();
-                cooldown = timeBetweenBullets;
-            }
+            Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
+            bullet.Shoot();
+            cooldown = timeBetweenBullets;
         }
-
 
         if (cooldown > 0)
         {
