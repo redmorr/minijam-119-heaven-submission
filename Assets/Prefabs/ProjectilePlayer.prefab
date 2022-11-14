@@ -117,9 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Health: 3
+  Health: 4
   Speed: 20
   PushbackForce: 1000
+  Explosion: {fileID: 5205630289829671960, guid: 5b02e1d7fdfd1804f953d6bc37795f41, type: 3}
 --- !u!50 &5240140696330357356
 Rigidbody2D:
   serializedVersion: 4

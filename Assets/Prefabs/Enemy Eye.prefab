@@ -225,9 +225,6 @@ MonoBehaviour:
   Weapon: {fileID: 1371998451569163447}
   Projectile: {fileID: 4355014189728491404, guid: befdcf1cb95216b48b813d0d4dce2a5f, type: 3}
   timeBetweenBullets: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 192
   spawnSFX:
     Guid:
       Data1: 312838377
@@ -247,9 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb811228a3f9454fbb2f6ed5174ff91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 3
+  MaxHP: 2
   HP: 0
-  CorpseHP: 2
+  CorpseHP: 1
   flashMaterial: {fileID: 2100000, guid: 7a9a7352db2527e4fb399305b9eb2c5f, type: 2}
   flashDuration: 0.125
   hurtSFX:

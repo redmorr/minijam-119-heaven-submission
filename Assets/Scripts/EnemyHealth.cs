@@ -47,11 +47,12 @@ public class EnemyHealth : Health
 
         if (HP > 0)
         {
-            RuntimeManager.PlayOneShot(deathSFX, transform.position);
+            RuntimeManager.PlayOneShot(hurtSFX, transform.position);
             Flash();
         }
         else if (HP == 0)
         {
+            RuntimeManager.PlayOneShot(deathSFX, transform.position);
             enemy.enabled = false;
             animator.enabled = false;
             gameObject.layer = 15; // Corpse

@@ -75,6 +75,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{861399f2-f010-4d22-ac11-56921d261cd0}">
+		<property name="volume">
+			<value>-4.5</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{6e45cf66-107a-4ca0-8ddf-f20fb8e80d19}</destination>
 		</relationship>
@@ -141,7 +144,7 @@
 			<value>40</value>
 		</property>
 		<property name="releaseTime">
-			<value>873.077026</value>
+			<value>100</value>
 		</property>
 		<property name="releaseShape">
 			<value>-0.587577224</value>

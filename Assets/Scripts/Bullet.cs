@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public int Health;
     public float Speed = 10f;
     public float PushbackForce;
+    public GameObject Explosion;
 
     private DestructableTilemap tilemap;
     private Health health;
@@ -30,6 +31,7 @@ public class Bullet : MonoBehaviour
         if (collision.collider.TryGetComponent(out tilemap))
         {
             tilemap.DestroyTiles(collision);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
             Health--;
             if (Health <= 0)
                 Destroy(gameObject);
@@ -38,16 +40,8 @@ public class Bullet : MonoBehaviour
         if (collision.collider.TryGetComponent(out health))
         {
             health.Damage(Damage, PushbackForce * transform.right);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-
-        
     }
-
-    //void OnTriggerEnter2D(Collider2D collider)
-    //{
-    //    Debug.Log(collider.name);
-    //    Destroy(gameObject);
-    //    //ammoBar.SpendOneAmmo();
-    //}
 }

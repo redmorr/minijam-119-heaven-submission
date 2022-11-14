@@ -37,6 +37,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(Time.timeSinceLevelLoad);
         if (Spawn)
         {
             if (SpawnRatePerSecond < timer)
