@@ -72,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{334e71a2-3278-4e80-aa72-028daba2ec1e}">
+		<property name="volume">
+			<value>-3</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{4ad324e7-fe20-464f-a158-019b0de34037}</destination>
 		</relationship>
@@ -92,6 +95,10 @@
 		<property name="length">
 			<value>0.81573696145124719</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{33528b47-46d2-4ea7-9b07-a6d8f1594521}</destination>
+			<destination>{e166ca94-5322-4104-b683-00319822b52f}</destination>
+		</relationship>
 		<relationship name="audioFile">
 			<destination>{79a7cfee-abf5-490d-9875-e4606c49bfe6}</destination>
 		</relationship>
@@ -118,6 +125,22 @@
 	</object>
 	<object class="MixerBusPanner" id="{caf95896-995c-48a0-a521-904f857a68cf}" />
 	<object class="MixerBusFader" id="{d48d4eac-9873-4f7d-a28a-a3fd02ab4daf}" />
+	<object class="RandomizerModulator" id="{33528b47-46d2-4ea7-9b07-a6d8f1594521}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{e166ca94-5322-4104-b683-00319822b52f}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>4.5</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{c8f168dd-95b0-40ad-b65d-fc99e0fdbdd4}">
 		<relationship name="effects">
 			<destination>{dc553593-75db-42cb-ad5d-fd04c95d7e5e}</destination>
@@ -127,10 +150,10 @@
 	<object class="MixerBusFader" id="{ce5f9766-7086-4aad-8328-73864eaad308}" />
 	<object class="SpatialiserEffect" id="{8e08b51b-8286-4a77-bf49-4bf9b3877935}">
 		<property name="minimumDistance">
-			<value>15</value>
+			<value>10</value>
 		</property>
 		<property name="maximumDistance">
-			<value>45</value>
+			<value>25</value>
 		</property>
 		<property name="overrideRange">
 			<value>true</value>

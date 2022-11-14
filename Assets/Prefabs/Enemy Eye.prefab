@@ -224,7 +224,7 @@ MonoBehaviour:
   WeaponMuzzle: {fileID: 1371998453403078788}
   Weapon: {fileID: 1371998451569163447}
   Projectile: {fileID: 4355014189728491404, guid: befdcf1cb95216b48b813d0d4dce2a5f, type: 3}
-  timeBetweenBullets: 2
+  timeBetweenBullets: 3
   spawnSFX:
     Guid:
       Data1: 312838377

@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
+        Application.targetFrameRate = 120;
         musicInstance.start();
     }
 

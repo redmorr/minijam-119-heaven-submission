@@ -7,7 +7,9 @@ using UnityEngine.Tilemaps;
 public class Spawner : MonoBehaviour
 {
     public Enemy enemyPrefab;
-    public float SpawnRatePerSecond;
+    public float InitalSpawnEveryXSecond;
+    public float FinalSpawnEveryXSecond;
+    public float TimeToMax;
     public bool Spawn = true;
     private Tilemap tilemap;
     private List<Vector3> tileWorldLocations = new List<Vector3>();
@@ -37,10 +39,9 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(Time.timeSinceLevelLoad);
         if (Spawn)
         {
-            if (SpawnRatePerSecond < timer)
+            if (Mathf.Lerp(InitalSpawnEveryXSecond, FinalSpawnEveryXSecond, Time.timeSinceLevelLoad/TimeToMax) < timer)
             {
                 Instantiate(enemyPrefab, tileWorldLocations[Random.Range(0, tileWorldLocations.Count - 1)], Quaternion.identity);
                 timer = 0f;
