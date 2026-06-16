@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AmmoBar : MonoBehaviour
 {
     public Ammo[] ammo;
@@ -15,10 +16,12 @@ public class AmmoBar : MonoBehaviour
 
     private Coroutine flash;
     private HealthBar healthBar;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         healthBar = transform.parent.GetComponent<HealthBar>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -69,7 +72,7 @@ public class AmmoBar : MonoBehaviour
 
         if (CurrentAmmo > 0)
         {
-            AudioSource.PlayClipAtPoint(HitSFX, transform.position);
+            audioSource.PlayOneShot(HitSFX);
             SpendOneAmmo();
         }
         else

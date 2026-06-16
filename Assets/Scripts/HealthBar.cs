@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class HealthBar : Health
 {
     public Heart[] Hearths;
@@ -20,6 +21,7 @@ public class HealthBar : Health
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
     private Rigidbody2D rb;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class HealthBar : Health
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public override void Damage(int damage, Vector2 pushback)
@@ -38,7 +41,7 @@ public class HealthBar : Health
     {
         if (!IsInInvincibilityFrame && CurrentHealth > 0)
         {
-            AudioSource.PlayClipAtPoint(HurtSFX, transform.position);
+            audioSource.PlayOneShot(HurtSFX);
             SpendOneHeart();
             FlashAndBlink();
         }

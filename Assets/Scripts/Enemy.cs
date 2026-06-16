@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour
 {
     public float Speed = 0.5f;
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
     private Player player;
     private float cooldown = 1f;
     private Vector2 movement;
@@ -25,13 +27,14 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         spriteRenderer.color = new Color(1f, 0f, 1f, 0.7f);
         StartCoroutine(SpoolUp());
     }
 
     private IEnumerator SpoolUp()
     {
-        AudioSource.PlayClipAtPoint(SpawnSFX, transform.position);
+        audioSource.PlayOneShot(SpawnSFX);
         yield return new WaitForSeconds(1f);
         animator.enabled = true;
         this.enabled = true;

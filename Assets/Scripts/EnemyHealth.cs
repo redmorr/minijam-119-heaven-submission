@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class EnemyHealth : Health
 {
     [Header("Health")]
@@ -20,11 +21,13 @@ public class EnemyHealth : Health
     private Rigidbody2D rb;
     private Enemy enemy;
     private Animator animator;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         enemy = GetComponent<Enemy>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -43,12 +46,12 @@ public class EnemyHealth : Health
 
         if (HP > 0)
         {
-            AudioSource.PlayClipAtPoint(HurtSFX, transform.position);
+            audioSource.PlayOneShot(HurtSFX);
             Flash();
         }
         else if (HP == 0)
         {
-            AudioSource.PlayClipAtPoint(DeathSFX, transform.position);
+            audioSource.PlayOneShot(DeathSFX);
             enemy.enabled = false;
             animator.enabled = false;
             gameObject.layer = 15; // Corpse
