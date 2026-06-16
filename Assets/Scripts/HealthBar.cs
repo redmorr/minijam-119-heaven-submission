@@ -1,4 +1,3 @@
-using FMODUnity;
 using System.Collections;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class HealthBar : Health
     public float flashDuration;
     public int loops;
     public float blinkDuration;
-    public EventReference hurtSFX;
+    public AudioClip HurtSFX;
 
     private Coroutine flash;
     private Player player;
@@ -39,7 +38,7 @@ public class HealthBar : Health
     {
         if (!IsInInvincibilityFrame && CurrentHealth > 0)
         {
-            RuntimeManager.PlayOneShot(hurtSFX, transform.position);
+            AudioSource.PlayClipAtPoint(HurtSFX, transform.position);
             SpendOneHeart();
             FlashAndBlink();
         }

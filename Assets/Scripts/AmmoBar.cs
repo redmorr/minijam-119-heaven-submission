@@ -1,7 +1,4 @@
-using FMODUnity;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AmmoBar : MonoBehaviour
@@ -11,7 +8,7 @@ public class AmmoBar : MonoBehaviour
     public Sprite BulletFull;
     public int CurrentAmmo = 6;
     public int MaxAmmo = 6;
-    public EventReference HitSFX;
+    public AudioClip HitSFX;
 
     public Material flashMaterial;
     public float flashDuration;
@@ -72,7 +69,7 @@ public class AmmoBar : MonoBehaviour
 
         if (CurrentAmmo > 0)
         {
-            RuntimeManager.PlayOneShot(HitSFX, transform.position);
+            AudioSource.PlayClipAtPoint(HitSFX, transform.position);
             SpendOneAmmo();
         }
         else

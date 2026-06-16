@@ -1,11 +1,10 @@
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class DestructableTilemap : MonoBehaviour
 {
     private Tilemap tilemap;
-    public EventReference destructionSFX;
+    public AudioClip DestructionSFX;
 
     private void Start()
     {
@@ -23,6 +22,6 @@ public class DestructableTilemap : MonoBehaviour
             tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
         }
 
-        RuntimeManager.PlayOneShot(destructionSFX);
+        AudioSource.PlayClipAtPoint(DestructionSFX, transform.position);
     }
 }
