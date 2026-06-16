@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -396,7 +395,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &73144302
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -413,7 +412,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &73144303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,13 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104f4f1dba633574a9a2bf648ad18ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionSFX:
-    Guid:
-      Data1: -134766684
-      Data2: 1120811391
-      Data3: 1920385460
-      Data4: -1116109042
-    Path: event:/Explosion1
+  DestructionSFX: {fileID: 8300000, guid: ae133ebc1e06b94408df59e9d41aaef9, type: 3}
 --- !u!1 &88860247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,6 +1461,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1526,15 +1521,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.015885022
     y: 0
-    width: 0.33333334
-    height: 0.44444445
+    width: 0.9682299
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 11.375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1622,6 +1617,14 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!81 &519420036
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,35 +1675,6 @@ MonoBehaviour:
   m_ShadowIntensity: 0.75
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
-  m_Vertices:
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
@@ -2041,6 +2015,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -29656,13 +29631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104f4f1dba633574a9a2bf648ad18ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionSFX:
-    Guid:
-      Data1: -134766684
-      Data2: 1120811391
-      Data3: 1920385460
-      Data4: -1116109042
-    Path: event:/Explosion1
+  DestructionSFX: {fileID: 8300000, guid: ae133ebc1e06b94408df59e9d41aaef9, type: 3}
 --- !u!1 &1041829858
 GameObject:
   m_ObjectHideFlags: 0
@@ -29705,45 +29674,15 @@ MonoBehaviour:
   ammoBar: {fileID: 2135128511}
   healthBar: {fileID: 0}
   Projectile: {fileID: 4355014189728491404, guid: 7d5416a165dd60e45a7dd1ad8ac29789, type: 3}
-  Gunshot:
-    Guid:
-      Data1: -1803566724
-      Data2: 1149135755
-      Data3: 486129058
-      Data4: -334603095
-    Path: event:/GunShoot
   TimeBetweenShots: 0.1
   ReloadTime: 1.1
   IsReloading: 0
   flashMaterial: {fileID: 2100000, guid: 7a9a7352db2527e4fb399305b9eb2c5f, type: 2}
-  flapWingsSFX:
-    Guid:
-      Data1: 1997327457
-      Data2: 1121677140
-      Data3: -2005021538
-      Data4: 1182740575
-    Path: event:/WingFlap
-  reloadSFX:
-    Guid:
-      Data1: -184227530
-      Data2: 1306921429
-      Data3: -1663356996
-      Data4: 2027866265
-    Path: event:/Reload
-  deathSFX:
-    Guid:
-      Data1: -3564223
-      Data2: 1164317354
-      Data3: -1446852477
-      Data4: -1511090555
-    Path: event:/PlayerDeath
-  music:
-    Guid:
-      Data1: 11405626
-      Data2: 1172170482
-      Data3: 436566443
-      Data4: -709469176
-    Path: event:/Music
+  GunshotSFX: {fileID: 8300000, guid: d4fbcdf5f31814a4197e77a226be5da3, type: 3}
+  FlapWingsSFX: {fileID: 8300000, guid: 0f717efce6a462448919841bd9b1e6ac, type: 3}
+  ReloadSFX: {fileID: 8300000, guid: a7f8209adbd46e540a03ce306bc114a6, type: 3}
+  DeathSFX: {fileID: 8300000, guid: c0e0cd6af4894184d9615534af8896ea, type: 3}
+  Music: {fileID: 8300000, guid: 0a5a75966d30cab49b55e62162f1373b, type: 3}
   IsAlive: 1
   CameraRoot: {fileID: 1119269149}
   MouseWeight: 0.3
@@ -29847,7 +29786,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!95 &1041829864
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -29864,7 +29803,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &1041829865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29919,13 +29859,7 @@ MonoBehaviour:
   flashDuration: 0.125
   loops: 6
   blinkDuration: 0.125
-  hurtSFX:
-    Guid:
-      Data1: 868470578
-      Data2: 1167434183
-      Data3: 1012034229
-      Data4: 2024893736
-    Path: event:/PlayerHurt
+  HurtSFX: {fileID: 8300000, guid: 837039ac050bb464bbf4c39dab1d878f, type: 3}
 --- !u!114 &1041829867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29983,7 +29917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
 --- !u!1 &1159151132
 GameObject:
   m_ObjectHideFlags: 3
@@ -34949,13 +34882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104f4f1dba633574a9a2bf648ad18ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionSFX:
-    Guid:
-      Data1: -134766684
-      Data2: 1120811391
-      Data3: 1920385460
-      Data4: -1116109042
-    Path: event:/Explosion1
+  DestructionSFX: {fileID: 8300000, guid: ae133ebc1e06b94408df59e9d41aaef9, type: 3}
 --- !u!1 &1900407364
 GameObject:
   m_ObjectHideFlags: 0
@@ -35499,12 +35426,6 @@ MonoBehaviour:
   BulletFull: {fileID: 261189703, guid: d8a7edf6075a2be4382bb6c7d0845d8f, type: 3}
   CurrentAmmo: 15
   MaxAmmo: 15
-  HitSFX:
-    Guid:
-      Data1: -1878108868
-      Data2: 1090862565
-      Data3: -1814266957
-      Data4: -1858694390
-    Path: event:/Plink
+  HitSFX: {fileID: 8300000, guid: 2dee48ac5f16dcb4cbbf7f914e4895e6, type: 3}
   flashMaterial: {fileID: 2100000, guid: 7a9a7352db2527e4fb399305b9eb2c5f, type: 2}
   flashDuration: 0.125

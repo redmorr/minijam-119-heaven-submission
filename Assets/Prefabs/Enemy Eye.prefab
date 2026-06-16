@@ -225,13 +225,7 @@ MonoBehaviour:
   Weapon: {fileID: 1371998451569163447}
   Projectile: {fileID: 4355014189728491404, guid: befdcf1cb95216b48b813d0d4dce2a5f, type: 3}
   timeBetweenBullets: 3
-  spawnSFX:
-    Guid:
-      Data1: 312838377
-      Data2: 1104510114
-      Data3: -231978561
-      Data4: -50211412
-    Path: event:/Teleport
+  SpawnSFX: {fileID: 8300000, guid: 4460b8d066899f34abcdc2a066108b79, type: 3}
 --- !u!114 &1371998452296744257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,20 +243,8 @@ MonoBehaviour:
   CorpseHP: 1
   flashMaterial: {fileID: 2100000, guid: 7a9a7352db2527e4fb399305b9eb2c5f, type: 2}
   flashDuration: 0.125
-  hurtSFX:
-    Guid:
-      Data1: 462077684
-      Data2: 1173830610
-      Data3: -823072113
-      Data4: -368286693
-    Path: event:/GotHurt
-  deathSFX:
-    Guid:
-      Data1: 1535868385
-      Data2: 1113903635
-      Data3: 1422497944
-      Data4: -1595519178
-    Path: event:/Death
+  HurtSFX: {fileID: 8300000, guid: 6f42ec4feb4262e499da51c3eb33fe58, type: 3}
+  DeathSFX: {fileID: 8300000, guid: 4a8c2733c3874f44caefb45966522eb8, type: 3}
 --- !u!50 &1371998452296744256
 Rigidbody2D:
   serializedVersion: 4
@@ -312,7 +294,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!95 &1371998452296744262
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -329,7 +311,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1371998453403078795
 GameObject:
   m_ObjectHideFlags: 0
