@@ -1,12 +1,7 @@
-using FMODUnity;
-using System;
 using System.Collections;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static UnityEngine.EventSystems.EventTrigger;
-
 
 public class Player : MonoBehaviour
 {
@@ -19,19 +14,19 @@ public class Player : MonoBehaviour
     public AmmoBar ammoBar;
     public HealthBar healthBar;
     public Bullet Projectile;
-    public EventReference Gunshot;
     public float TimeBetweenShots;
     public float ReloadTime;
     public bool IsReloading = false;
     public Material flashMaterial;
-    public EventReference flapWingsSFX;
-    public EventReference reloadSFX;
-    public EventReference deathSFX;
-    public EventReference music;
-    private FMOD.Studio.EventInstance musicInstance;
+
+    [Header("Audio")]
+    public AudioClip GunshotSFX;
+    public AudioClip FlapWingsSFX;
+    public AudioClip ReloadSFX;
+    public AudioClip DeathSFX;
+    public AudioClip Music;
 
     public bool IsAlive = true;
-
 
     [Header("Camera")]
     public Transform CameraRoot;
@@ -49,13 +44,10 @@ public class Player : MonoBehaviour
     private Material weaponOriginalMaterial;
     private Fader fader;
     private Spawner spawner;
-
-    //private Coroutine reloadRoutine;
+    private AudioSource musicSource;
 
     private Vector2 movement;
     private Vector2 mouse;
-
-
     private float gunCooldown = 0f;
 
     private void Awake()
@@ -68,12 +60,17 @@ public class Player : MonoBehaviour
         ammoBar = GetComponentInChildren<AmmoBar>();
         sprite = GetComponent<SpriteRenderer>();
         weaponOriginalMaterial = Weapon.material;
-        musicInstance = RuntimeManager.CreateInstance(music);
+
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.clip = Music;
+        musicSource.loop = true;
+        musicSource.playOnAwake = false;
     }
+
     private void Start()
     {
         Application.targetFrameRate = 120;
-        musicInstance.start();
+        musicSource.Play();
     }
 
     void OnEnable()
@@ -134,18 +131,14 @@ public class Player : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, toMouse);
         WeaponPivot.eulerAngles = new Vector3(0, 0, angle);
 
-
         if (movement != Vector2.zero)
             animator.SetFloat("SpeedMultiplier", 2f);
         else
             animator.SetFloat("SpeedMultiplier", 1f);
 
         if (gunCooldown > 0f)
-        {
             gunCooldown -= Time.deltaTime;
-        }
     }
-
 
     private void FixedUpdate()
     {
@@ -154,7 +147,7 @@ public class Player : MonoBehaviour
 
     public void PlayFlapWingsSFX()
     {
-        RuntimeManager.PlayOneShot(flapWingsSFX, transform.position);
+        AudioSource.PlayClipAtPoint(FlapWingsSFX, transform.position);
     }
 
     private void Fire(InputAction.CallbackContext context)
@@ -162,23 +155,18 @@ public class Player : MonoBehaviour
         if (gunCooldown <= 0f && ammoBar.CurrentAmmo > 0 && !IsReloading)
         {
             Bullet bullet = Instantiate(Projectile, WeaponMuzzle.position, WeaponMuzzle.rotation);
-            //Instantiate(MuzzleFlash, WeaponMuzzle.position, WeaponMuzzle.rotation);
-            RuntimeManager.PlayOneShot(Gunshot, WeaponMuzzle.position);
+            AudioSource.PlayClipAtPoint(GunshotSFX, WeaponMuzzle.position);
             bullet.Shoot();
             gunCooldown = TimeBetweenShots;
             if (ammoBar.SpendOneAmmo() <= 0)
-            {
                 StartCoroutine(ReloadRoutine());
-            }
         }
     }
 
     private void Reload(InputAction.CallbackContext context)
     {
         if (!IsReloading && ammoBar.CurrentAmmo != ammoBar.MaxAmmo)
-        {
             StartCoroutine(ReloadRoutine());
-        }
     }
 
     private IEnumerator ReloadRoutine()
@@ -186,7 +174,7 @@ public class Player : MonoBehaviour
         ammoBar.DumpAllAmmo();
         IsReloading = true;
         Weapon.material = flashMaterial;
-        RuntimeManager.PlayOneShot(reloadSFX, transform.position);
+        AudioSource.PlayClipAtPoint(ReloadSFX, transform.position);
         yield return new WaitForSeconds(ReloadTime);
         ammoBar.ReloadAllAmmo();
         Weapon.material = weaponOriginalMaterial;
@@ -196,15 +184,13 @@ public class Player : MonoBehaviour
     private IEnumerator SceneReload()
     {
         yield return new WaitForSeconds(2f);
-        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
-
     public void Die()
     {
-        musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        musicSource.Stop();
         move.Disable();
         fire.Disable();
         reload.Disable();
@@ -223,7 +209,7 @@ public class Player : MonoBehaviour
         }
         fader.FadeOut();
         this.enabled = false;
-        RuntimeManager.PlayOneShot(deathSFX, transform.position);
+        AudioSource.PlayClipAtPoint(DeathSFX, transform.position);
         StartCoroutine(SceneReload());
     }
 }

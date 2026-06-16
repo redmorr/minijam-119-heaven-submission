@@ -1,6 +1,4 @@
-using FMODUnity;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : Health
@@ -12,9 +10,9 @@ public class EnemyHealth : Health
     [Header("Flash on Damage")]
     public Material flashMaterial;
     public float flashDuration;
-    public EventReference hurtSFX;
-    public EventReference deathSFX;
-
+    [Header("Audio")]
+    public AudioClip HurtSFX;
+    public AudioClip DeathSFX;
 
     private Coroutine flash;
     private SpriteRenderer spriteRenderer;
@@ -36,9 +34,7 @@ public class EnemyHealth : Health
         TryGetComponent(out rb);
 
         if (spriteRenderer)
-        {
             originalMaterial = spriteRenderer.material;
-        }
     }
 
     public override void Damage(int damage, Vector2 pushback)
@@ -47,12 +43,12 @@ public class EnemyHealth : Health
 
         if (HP > 0)
         {
-            RuntimeManager.PlayOneShot(hurtSFX, transform.position);
+            AudioSource.PlayClipAtPoint(HurtSFX, transform.position);
             Flash();
         }
         else if (HP == 0)
         {
-            RuntimeManager.PlayOneShot(deathSFX, transform.position);
+            AudioSource.PlayClipAtPoint(DeathSFX, transform.position);
             enemy.enabled = false;
             animator.enabled = false;
             gameObject.layer = 15; // Corpse
@@ -60,27 +56,19 @@ public class EnemyHealth : Health
             spriteRenderer.flipY = true;
 
             if (rb)
-            {
                 rb.AddForce(pushback);
-            }
         }
         else
         {
             if (HP <= -CorpseHP)
-            {
                 Destroy(gameObject);
-            }
         }
     }
-
-
 
     public void Flash()
     {
         if (flash != null)
-        {
             StopCoroutine(flash);
-        }
 
         flash = StartCoroutine(FlashRoutine());
     }
@@ -89,16 +77,12 @@ public class EnemyHealth : Health
     {
         spriteRenderer.material = flashMaterial;
         yield return new WaitForSeconds(flashDuration);
-
         spriteRenderer.material = originalMaterial;
     }
 
     private void OnDisable()
     {
         if (flash != null)
-        {
             StopCoroutine(flash);
-        }
     }
 }
-

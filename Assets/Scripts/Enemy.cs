@@ -1,8 +1,5 @@
-using FMODUnity;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,15 +9,14 @@ public class Enemy : MonoBehaviour
     public SpriteRenderer Weapon;
     public Bullet Projectile;
     public float timeBetweenBullets = 1f;
-    public EventReference spawnSFX;
+    [Header("Audio")]
+    public AudioClip SpawnSFX;
 
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-
     private Player player;
     private float cooldown = 1f;
-
     private Vector2 movement;
 
     private void Awake()
@@ -33,10 +29,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine(SpoolUp());
     }
 
-
     private IEnumerator SpoolUp()
     {
-        RuntimeManager.PlayOneShot(spawnSFX);
+        AudioSource.PlayClipAtPoint(SpawnSFX, transform.position);
         yield return new WaitForSeconds(1f);
         animator.enabled = true;
         this.enabled = true;
@@ -68,13 +63,9 @@ public class Enemy : MonoBehaviour
         }
 
         if (cooldown > 0)
-        {
             cooldown -= Time.deltaTime;
-        }
         else
-        {
             cooldown = 0f;
-        }
 
         animator.SetFloat("X", movement.x);
         animator.SetFloat("Y", movement.y);
@@ -83,8 +74,6 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         if (player.IsAlive)
-        {
             rb.MovePosition(rb.position + Time.fixedDeltaTime * Speed * movement);
-        }
     }
 }
